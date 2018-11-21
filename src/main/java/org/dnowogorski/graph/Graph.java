@@ -1,4 +1,4 @@
-package org.dnowogorski;
+package org.dnowogorski.graph;
 
 import java.util.ArrayList;
 import java.util.Collection;

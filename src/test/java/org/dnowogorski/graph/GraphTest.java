@@ -1,4 +1,4 @@
-package org.dnowogorski;
+package org.dnowogorski.graph;
 
 import org.junit.Before;
 import org.junit.Test;
