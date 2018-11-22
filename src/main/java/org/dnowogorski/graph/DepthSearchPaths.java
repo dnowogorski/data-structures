@@ -62,4 +62,20 @@ public class DepthSearchPaths implements Paths {
             }
         }
     }
+
+    private void iterativeDFS(int v) {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(v);
+        visited[v] = true;
+        while (!stack.isEmpty()) {
+            int x = stack.pop();
+            graph.adj(x).forEach(w -> {
+                if (!visited[w]) {
+                    visited[w] = true;
+                    edgeTo[w] = x;
+                    stack.push(w);
+                }
+            });
+        }
+    }
 }
