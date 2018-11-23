@@ -3,13 +3,12 @@ package org.dnowogorski.graph;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 
-public class DepthSearchPaths implements Paths {
-    private final Graph graph;
-    private final int source;
-    private final boolean[] visited;
-    private final int[] edgeTo;
+public abstract class AbstractSearchPaths implements Paths {
+    final Graph graph;
+    final int source;
+    final boolean[] visited;
+    final int[] edgeTo;
 
     /**
      * Create new DepthSearchPaths instance
@@ -17,7 +16,7 @@ public class DepthSearchPaths implements Paths {
      * @param graph  graph to be searched
      * @param source source vertex
      */
-    public DepthSearchPaths(Graph graph, int source) {
+    public AbstractSearchPaths(Graph graph, int source) {
         this.graph = graph;
         this.source = source;
         this.visited = new boolean[graph.getNumberOfVertices()];
@@ -31,7 +30,7 @@ public class DepthSearchPaths implements Paths {
      * @return true if there is a path, false otherwise
      */
     public boolean hasPathTo(int dest) {
-        recursiveDFS(source);
+        search(source);
         return visited[dest];
     }
 
@@ -52,30 +51,5 @@ public class DepthSearchPaths implements Paths {
         return path;
     }
 
-
-    private void recursiveDFS(int v) {
-        visited[v] = true;
-        for (Integer w : graph.adj(v)) {
-            if (!visited[w]) {
-                edgeTo[w] = v;
-                recursiveDFS(w);
-            }
-        }
-    }
-
-    private void iterativeDFS(int v) {
-        Stack<Integer> stack = new Stack<>();
-        stack.push(v);
-        visited[v] = true;
-        while (!stack.isEmpty()) {
-            int x = stack.pop();
-            graph.adj(x).forEach(w -> {
-                if (!visited[w]) {
-                    visited[w] = true;
-                    edgeTo[w] = x;
-                    stack.push(w);
-                }
-            });
-        }
-    }
+    abstract void search(int v);
 }
