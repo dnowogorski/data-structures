@@ -7,8 +7,8 @@ import java.util.List;
 
 public class Graph {
 
-    private final int V;
-    private final List<List<Integer>> adj;
+    protected final int V;
+    protected final List<List<Integer>> adj;
 
     /**
      * Create an empty graph with V vertices
